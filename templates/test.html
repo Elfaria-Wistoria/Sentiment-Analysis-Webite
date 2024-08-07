@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Sentiment Analysis</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <nav class="bg-gray-800 p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="text-white text-lg font-semibold">
+                Elfaria Wistoria
+            </div>
+            <div class="flex space-x-4">
+                <a href="{{ url_for('index') }}" class="text-white hover:bg-gray-700 px-3 py-2 rounded">Home</a>
+                <a href="{{ url_for('process') }}" class="text-white hover:bg-gray-700 px-3 py-2 rounded">Process</a>
+                <a href="{{ url_for('model') }}" class="text-white hover:bg-gray-700 px-3 py-2 rounded">Model</a>
+                <a href="{{ url_for('classify') }}" class="text-white hover:bg-gray-700 px-3 py-2 rounded">Classify</a>
+                <a href="{{ url_for('test') }}" class="text-white hover:bg-gray-700 px-3 py-2 rounded">Test</a>
+            </div>
+        </div>
+    </nav>
+    
+
+    <div class="flex items-center justify-center min-h-screen">
+        <div class="bg-white shadow-md rounded-lg p-8 max-w-md w-full">
+            <h1 class="text-2xl font-bold mb-6 text-center">Test Sentiment Analysis</h1>
+            <form method="post" class="space-y-4">
+                <div>
+                    <label for="test_comment" class="block text-gray-700">Enter a comment to test:</label>
+                    <textarea id="test_comment" name="test_comment" rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required></textarea>
+                </div>
+                <div class="flex justify-center">
+                    <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">Test</button>
+                </div>
+            </form>
+            {% if sentiment %}
+            <div class="mt-4 p-4 text-center {{ 'bg-red-100 text-red-600' if sentiment == 'NEGATIVE' else 'bg-gray-100 text-gray-600' if sentiment == 'NEUTRAL' else 'bg-green-100 text-green-600' }} rounded">
+                <strong>Sentiment:</strong> {{ sentiment }}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

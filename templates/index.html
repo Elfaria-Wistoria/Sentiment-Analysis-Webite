@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Sentiment Analysis</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <nav class="bg-gray-800 p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="text-white text-lg font-semibold">
+                Elfaria Wistoria
+            </div>
+            <div class="flex space-x-4">
+                <a href="{{ url_for('index') }}" class="text-white hover:bg-gray-700 px-3 py-2 rounded">Home</a>
+                <a href="{{ url_for('process') }}" class="text-white hover:bg-gray-700 px-3 py-2 rounded">Process</a>
+                <a href="{{ url_for('model') }}" class="text-white hover:bg-gray-700 px-3 py-2 rounded">Model</a>
+                <a href="{{ url_for('classify') }}" class="text-white hover:bg-gray-700 px-3 py-2 rounded">Classify</a>
+                <a href="{{ url_for('test') }}" class="text-white hover:bg-gray-700 px-3 py-2 rounded">Test</a>
+            </div>
+        </div>
+    </nav>
+    
+
+    <div class="flex items-center justify-center min-h-screen">
+        <div class="bg-white shadow-md rounded-lg p-8 max-w-md w-full">
+            <h1 class="text-2xl font-bold mb-6 text-center">Scrape YouTube Comments</h1>
+            <form method="post" class="space-y-4">
+                <div>
+                    <label for="query" class="block text-gray-700">Enter a keyword or hashtag:</label>
+                    <input type="text" id="query" name="query" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div>
+                    <label for="max_videos" class="block text-gray-700">Number of videos:</label>
+                    <input type="number" id="max_videos" name="max_videos" min="1" max="50" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div>
+                    <label for="num_comments" class="block text-gray-700">Comments per video:</label>
+                    <input type="number" id="num_comments" name="num_comments" min="1" max="100" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="flex justify-center">
+                    <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">Scrape</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

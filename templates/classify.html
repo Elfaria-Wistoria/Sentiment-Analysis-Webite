@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classification Results</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .negative { background-color: #ffe5e5; }
+        .neutral { background-color: #f0f0f0; }
+        .positive { background-color: #e5ffea; }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <nav class="bg-gray-800 p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="text-white text-lg font-semibold">
+                Elfaria Wistoria
+            </div>
+            <div class="flex space-x-4">
+                <a href="{{ url_for('index') }}" class="text-white hover:bg-gray-700 px-3 py-2 rounded">Home</a>
+                <a href="{{ url_for('process') }}" class="text-white hover:bg-gray-700 px-3 py-2 rounded">Process</a>
+                <a href="{{ url_for('model') }}" class="text-white hover:bg-gray-700 px-3 py-2 rounded">Model</a>
+                <a href="{{ url_for('classify') }}" class="text-white hover:bg-gray-700 px-3 py-2 rounded">Classify</a>
+                <a href="{{ url_for('test') }}" class="text-white hover:bg-gray-700 px-3 py-2 rounded">Test</a>
+            </div>
+        </div>
+    </nav>
+    
+
+    <div class="flex items-center justify-center min-h-screen">
+        <div class="bg-white shadow-md rounded-lg p-8 max-w-4xl w-full">
+            <h1 class="text-2xl font-bold mb-6 text-center">Classification Results</h1>
+            <p class="text-center text-gray-700 mb-4">Model Accuracy: <span class="font-semibold">{{ accuracy | round(2) * 100 }}%</span></p>
+            <div class="flex justify-center space-x-4 mb-4">
+                <div class="flex items-center">
+                    <span class="inline-block w-4 h-4 bg-red-200 mr-2"></span>
+                    <span class="text-gray-700">Negative</span>
+                </div>
+                <div class="flex items-center">
+                    <span class="inline-block w-4 h-4 bg-gray-200 mr-2"></span>
+                    <span class="text-gray-700">Neutral</span>
+                </div>
+                <div class="flex items-center">
+                    <span class="inline-block w-4 h-4 bg-green-200 mr-2"></span>
+                    <span class="text-gray-700">Positive</span>
+                </div>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="min-w-full bg-white border border-gray-300">
+                    <thead>
+                        <tr class="bg-gray-200">
+                            <th class="py-2 px-4 border-b border-gray-300 text-left text-gray-800">Comment</th>
+                            <th class="py-2 px-4 border-b border-gray-300 text-left text-gray-800">Author</th>
+                            <th class="py-2 px-4 border-b border-gray-300 text-left text-gray-800">Published At</th>
+                            <th class="py-2 px-4 border-b border-gray-300 text-left text-gray-800">Likes</th>
+                            <th class="py-2 px-4 border-b border-gray-300 text-center text-gray-800">Sentiment</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for result in results %}
+                        <tr class="border-b border-gray-300 {% if result.sentiment == 'NEGATIVE' %}negative{% elif result.sentiment == 'NEUTRAL' %}neutral{% elif result.sentiment == 'POSITIVE' %}positive{% endif %}">
+                            <td class="py-2 px-4">{{ result.comment }}</td>
+                            <td class="py-2 px-4">{{ result.author }}</td>
+                            <td class="py-2 px-4">{{ result.published_at }}</td>
+                            <td class="py-2 px-4">{{ result.like_count }}</td>
+                            <td class="py-2 px-4 font-semibold text-center">
+                                <span class="py-1 px-3 rounded-full {% if result.sentiment == 'NEGATIVE' %}bg-red-100 text-red-600{% elif result.sentiment == 'NEUTRAL' %}bg-gray-100 text-gray-600{% elif result.sentiment == 'POSITIVE' %}bg-green-100 text-green-600{% endif %}">
+                                    {{ result.sentiment }}
+                                </span>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
